@@ -1,0 +1,1 @@
+./main Benchmark/2023_case1.txt ./output/2023_result1_1.txt
