@@ -9,7 +9,9 @@
 #include "../src/lib/placement.h"
 #include "../src/lib/random.h"
 #include "../src/lib/simulate_annealing.h"
-
+#include<string>
+#include <iostream>
+#include <fstream>
 double CUT_OFF_TIME;
 double start_time;
 
@@ -42,8 +44,17 @@ int main(int argc, char *argv[])
 
 	// read file part
 	readTechnologyInfo(input, &NumTechnologies, TechMenu);
-	printTechnologyInfo(NumTechnologies, TechMenu);
+	// printTechnologyInfo(NumTechnologies, TechMenu);
+	//PD2023
+	
+	string inputFileName = inputName;
+	size_t slashPos = inputFileName.find("/");
+	string substr = inputFileName.substr(slashPos + 1);
+	string topFileName = "Top_tech_" + substr ;
+	string bottomFileName = "Bottom_tech_" + substr;
+	// cout <<topFileName<<"\n"<<bottomFileName<<"\n";
 
+	//PD2023
 	readDieInfo(input, &top_die, &bottom_die);
 	// printDieInfo(top_die, bottom_die);
 	readHybridTerminalInfo(input, &terminal);
@@ -60,8 +71,8 @@ int main(int argc, char *argv[])
 	ReadCutSize(&NumTerminal);																			// read cut size
 	ReadPartitionResult(&ArrayInfo, NumInstances, PartitionResult);										// store the partition result into cellarray in a
 	UpdateInstanceArray(InstanceArray, PartitionResult, top_die, bottom_die);
-	printPartitionResult(ArrayInfo, InstanceArray, PartitionResult);
-	return 0;
+	// printPartitionResult(ArrayInfo, InstanceArray, PartitionResult);
+	
 	// create netarray and cellarray
 	GetCellOfNet(rawnet, NetArray, NumNets, PartitionResult, &NumTerminal);
 	// PrintNetArray(NetArray, NumNets);
@@ -69,6 +80,13 @@ int main(int argc, char *argv[])
 	getSizeOfCellArray(&ArrayInfo, TechMenu, top_die, bottom_die, InstanceArray);
 	// printTopBottomCellArray(&ArrayInfo, PartitionResult);
 
+	//PD2023
+	// cout <<top_die.tech<<"\n";
+	// cout <<bottom_die.tech<<"\n";
+	OutputTopBottomFile(top_die.tech,bottom_die.tech, topFileName,bottomFileName,inputFileName, PartitionResult, InstanceArray,NetArray);
+
+	//PD2023
+	return 0;
 	// initial placement
 	bool BottomPartitionAgain;
 	bool TopPartitionAgain;

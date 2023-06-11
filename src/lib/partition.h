@@ -1,6 +1,6 @@
 #include "readfile.h"
 #include <vector>
-
+#include<string>
 using namespace std;
 using std::vector;
 
@@ -51,4 +51,6 @@ void PrintNetArray(vector <Net> NetArray, int NumNets);
 void GetNetOfCell(vector <Net> NetArray, TopBottomCellArray *ArrayInfo, vector <int> PartitionResult);
 void getSizeOfCellArray(TopBottomCellArray *ArrayInfo, vector <Tech_menu> TechMenu, Die top_die, Die bottom_die, vector <Instance> InstanceArray);
 void printTopBottomCellArray(TopBottomCellArray *ArrayInfo, vector <int> PartitionResult);
+
+void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileName,string bottomFileName,string input,vector <int> PartitionResult,vector <Instance> InstanceArray,vector <Net> NetArray);
 #endif

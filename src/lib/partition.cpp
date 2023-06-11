@@ -4,10 +4,13 @@
 #include <assert.h>
 #include "partition.h"
 #include "readfile.h"
-
+#include<string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #define TEMP_BUFFER_SIZE 25
 #define WORD_BUFFER_SIZE 1000
-
+using namespace std;
 void OutputPartitionFormat(int NumNets, int NumInstances, vector<RawNet> rawnet, vector<Tech_menu> TechMenu, vector<Instance> InstanceArray, Die top_die, Die bottom_die)
 {
 	FILE *shmetisInput = fopen("Netlist.hgr", "w");
@@ -356,4 +359,193 @@ void printTopBottomCellArray(TopBottomCellArray *ArrayInfo, vector<int> Partitio
 		printf("\t\t(libCellSizeX, libCellSizeY) = (%d, %d)\n", ArrayInfo->TopCellArray[i].libCellSizeX, ArrayInfo->TopCellArray[i].libCellSizeY);
 		printf("\n");
 	}
+}
+
+void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileName,string bottomFileName,string input,vector <int> PartitionResult,vector <Instance> InstanceArray,vector <Net> NetArray){
+	ifstream inputFile(input);
+	ofstream topFile(topFileName);
+	ofstream bottomFile(bottomFileName);
+	if (inputFile.is_open()) {
+        string line;
+		bool topOutputStarted = false;
+		bool bottomOutputStarted = false;
+        // Read and print each line from the file
+        while (getline(inputFile, line)) {
+			if ((topOutputStarted && line.find("Tech")!= std::string::npos) ) {
+                topOutputStarted = false;
+				// cout <<"test3:"<<line<<"\n";
+            }
+			if ((bottomOutputStarted && line.find("Tech")!= std::string::npos) ) {
+                bottomOutputStarted = false;
+				// cout <<"test4:"<<line<<"\n";
+            }
+			if (line.find(topDieTech) != string::npos) {
+                topOutputStarted = true;
+				// cout <<"find(topDieTech):"<<line<<"\n";
+            }
+			if (line.find(bottomDieTech) != string::npos) {
+                bottomOutputStarted = true;
+				// cout <<"find(bottomDieTech):"<<line<<"\n";
+            }
+			if (line.empty()){
+				break;
+			}
+			
+			if (topOutputStarted) {
+                topFile << line << endl;
+            }
+			if (bottomOutputStarted) {
+                bottomFile << line << endl;
+            }
+        }
+		while (getline(inputFile, line)) {
+			if (line.find("NumInstances") != string::npos) {
+                break;
+            }
+			if (line.find("TopDieRows") != string::npos) {
+                topFile << line << endl;
+            }
+			if (line.find("BottomDieRows") != string::npos) {
+               	bottomFile << line << endl;
+            }
+		}
+		for(size_t i =0;i<InstanceArray.size();i++){
+			getline(inputFile, line);
+			if(PartitionResult[i] == 0){
+				bottomFile << line << endl;
+			}
+			else if (PartitionResult[i] == 1){
+				topFile << line << endl;
+			}
+			else{
+				assert(0);
+			}
+		}
+		getline(inputFile, line);
+		// cout<<line<<"\n";
+		getline(inputFile, line);
+		istringstream iss(line);
+		string label;
+    	int net_number;
+		iss >> label >> net_number;
+		// cout<<net_number<<"\n";
+		string next_line = "\n";
+		// cout << a;
+		string temp_top_line;
+		string temp_bottom_line;
+		int temp_top_instance_count = 0;
+		int temp_bottom_instance_count = 0;
+		getline(inputFile, line);
+		string net_line = line;
+		// cout<<net_line;
+		temp_top_line = temp_top_line + next_line+line;
+		temp_bottom_line = temp_bottom_line + next_line + line;
+		string result = "";
+		string temp_line_one_element = "";
+		for(int i = 0;i < net_number;i++){
+			while (getline(inputFile, line)) {
+				// cout <<line<<"\n";
+				if(line.empty()){
+					
+					break;
+				}
+				if (line.find("Net") != string::npos) {
+					net_line = line;
+					if (NetArray[i].hasHybridTerminal){
+						temp_bottom_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_bottom_line;
+						temp_top_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_top_line;
+					}
+					if(temp_top_instance_count == 0){
+						
+					}else if(temp_top_instance_count == 1){
+						istringstream iss_top(temp_top_line);
+						result = "";
+						temp_line_one_element = "";
+						while (getline(iss_top, temp_line_one_element)) {
+							result += "//" + temp_line_one_element + "\n";
+						}
+						topFile << result << endl;
+					}else{
+						topFile << temp_top_line << endl;
+						
+					}
+					if(temp_bottom_instance_count == 0){
+						
+					}else if(temp_bottom_instance_count == 1){
+						// temp_bottom_line = "//"+temp_bottom_line;
+						istringstream iss_bottom(temp_bottom_line);
+						result = "";
+						temp_line_one_element = "";
+						while (getline(iss_bottom, temp_line_one_element)) {
+							result += "//" + temp_line_one_element + "\n";
+						}
+						bottomFile << result << endl;
+					}else{
+						bottomFile << temp_bottom_line << endl;
+					}
+					// cout <<line<<"\n";
+					temp_top_line = line;
+					temp_bottom_line = line;
+					temp_top_instance_count = 0;
+					temp_bottom_instance_count = 0;
+                	break;
+            	}
+				
+				string temp_word;
+				string temp_number;
+				istringstream iss1(line);
+				iss1 >> temp_word >> temp_number;
+				string instanceIndex = temp_number.substr(1);
+				int index = stoi(instanceIndex);
+				// cout<<index<<" : "<<PartitionResult[index-1]<<"\n";
+				// the instnace of net is in top
+				if(PartitionResult[index-1] == 1 ){
+					temp_top_line = temp_top_line + next_line+line;
+					temp_top_instance_count++;
+				}
+				else if(PartitionResult[index-1] == 0){//the instnace of net is in bottom
+					temp_bottom_line = temp_bottom_line+ next_line+line;
+					temp_bottom_instance_count++;
+				}
+			}
+		}
+		if (NetArray[net_number].hasHybridTerminal){
+						temp_bottom_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_bottom_line;
+						temp_top_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_top_line;
+		}
+		if(temp_top_instance_count == 0){
+						
+		}else if(temp_top_instance_count == 1){
+			istringstream iss_top(temp_top_line);
+			result = "";
+			temp_line_one_element = "";
+			while (getline(iss_top, temp_line_one_element)) {
+				result += "//" + temp_line_one_element + "\n";
+			}
+			topFile << result << endl;
+		}else{
+			topFile << temp_top_line << endl;
+			
+		}
+		if(temp_bottom_instance_count == 0){
+			
+		}else if(temp_bottom_instance_count == 1){
+			// temp_bottom_line = "//"+temp_bottom_line;
+			istringstream iss_bottom(temp_bottom_line);
+			result = "";
+			temp_line_one_element = "";
+			while (getline(iss_bottom, temp_line_one_element)) {
+				result += "//" + temp_line_one_element + "\n";
+			}
+			bottomFile << result << endl;
+		}else{
+			bottomFile << temp_bottom_line << endl;
+		}
+		// cout<<"PartiionResult.size():"<<PartitionResult.size();
+        inputFile.close();
+    } else {
+        cerr << "Failed to open the file: " << input << endl;
+    }
+	topFile.close();
+	bottomFile.close();
 }

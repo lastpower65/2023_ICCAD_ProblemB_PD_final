@@ -1,0 +1,26 @@
+Tech TB 3
+LibCell N MC1 7 15 1
+Pin P1 2 11
+LibCell N MC2 12 15 2
+Pin P1 5 12
+Pin P2 8 3
+LibCell Y MC3 18 18 3
+Pin P1 2 12
+Pin P2 3 3
+Pin P3 15 7
+BottomDieRows 0 0 40 15 2
+Inst C1 MC1
+Inst C2 MC3
+Inst C8 MC1
+
+Net N1 2
+Pin C1/P1
+Pin C2/P2
+//
+////There exists HybridTerminal in this net
+//Net N2 3
+//Pin C2/P1
+
+Net N3 2
+Pin C2/P3
+Pin C8/P1
