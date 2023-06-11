@@ -509,7 +509,9 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 				}
 			}
 		}
-		if (NetArray[net_number].hasHybridTerminal){
+		// cout<<"net_number:"<<net_number;
+		// cout<<"NetArray:"<<NetArray.size();
+		if (NetArray[net_number-1].hasHybridTerminal){
 						temp_bottom_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_bottom_line;
 						temp_top_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_top_line;
 		}

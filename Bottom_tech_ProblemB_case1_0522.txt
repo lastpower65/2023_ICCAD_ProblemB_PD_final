@@ -9,18 +9,18 @@ Pin P1 2 12
 Pin P2 3 3
 Pin P3 15 7
 BottomDieRows 0 0 40 15 2
-Inst C1 MC1
-Inst C2 MC3
-Inst C8 MC1
-
-Net N1 2
-Pin C1/P1
-Pin C2/P2
+Inst C4 MC2
+Inst C5 MC2
+Inst C6 MC3
 //
 ////There exists HybridTerminal in this net
-//Net N2 3
-//Pin C2/P1
+//Net N4 3
+//Pin C6/P2
 
-Net N3 2
-Pin C2/P3
-Pin C8/P1
+Net N5 3
+Pin C4/P2
+Pin C6/P1
+Pin C5/P1
+Net N6 2
+Pin C4/P1
+Pin C5/P2
