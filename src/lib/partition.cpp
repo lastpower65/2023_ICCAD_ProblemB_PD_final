@@ -437,6 +437,7 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 		int temp_bottom_instance_count = 0;
 		getline(inputFile, line);
 		string net_line = line;
+		cout <<line<<'\n';
 		// cout<<net_line;
 		temp_top_line = temp_top_line + next_line+line;
 		temp_bottom_line = temp_bottom_line + next_line + line;
@@ -451,6 +452,7 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 					break;
 				}
 				if (line.find("Net") != string::npos) {
+					cout <<line<<'\n';
 					net_line = line;
 					if (NetArray[i].hasHybridTerminal){
 						temp_bottom_line = next_line+"//There exists HybridTerminal in this net"+next_line+temp_bottom_line;
@@ -507,10 +509,12 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 				if(PartitionResult[index-1] == 1 ){
 					temp_top_line = temp_top_line + next_line+line;
 					temp_top_instance_count++;
+					cout << "top: "<<index<<"\n";
 				}
 				else if(PartitionResult[index-1] == 0){//the instnace of net is in bottom
 					temp_bottom_line = temp_bottom_line+ next_line+line;
 					temp_bottom_instance_count++;
+					cout << "bottom: "<<index<<"\n";
 				}
 				
 			}
