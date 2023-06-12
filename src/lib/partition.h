@@ -53,4 +53,5 @@ void getSizeOfCellArray(TopBottomCellArray *ArrayInfo, vector <Tech_menu> TechMe
 void printTopBottomCellArray(TopBottomCellArray *ArrayInfo, vector <int> PartitionResult);
 
 void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileName,string bottomFileName,string input,vector <int> PartitionResult,vector <Instance> InstanceArray,vector <Net> NetArray);
+void top_bottom_instance_number(vector <int> PartitionResult);
 #endif

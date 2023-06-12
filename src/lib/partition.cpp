@@ -442,6 +442,7 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 		temp_bottom_line = temp_bottom_line + next_line + line;
 		string result = "";
 		string temp_line_one_element = "";
+		// ofstream checkFile("check.txt");
 		for(int i = 0;i < net_number;i++){
 			while (getline(inputFile, line)) {
 				// cout <<line<<"\n";
@@ -495,10 +496,14 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 				string temp_number;
 				istringstream iss1(line);
 				iss1 >> temp_word >> temp_number;
-				string instanceIndex = temp_number.substr(1);
+				size_t slashIndex = line.find('/');
+				string instanceIndex = temp_number.substr(1,slashIndex-1);
 				int index = stoi(instanceIndex);
-				// cout<<index<<" : "<<PartitionResult[index-1]<<"\n";
+				// cout<<"index: "<<" : "<<index<<"\n";
+				// checkFile<<instanceIndex<<"\n";
+				// checkFile<<index<<"\n";
 				// the instnace of net is in top
+				
 				if(PartitionResult[index-1] == 1 ){
 					temp_top_line = temp_top_line + next_line+line;
 					temp_top_instance_count++;
@@ -507,6 +512,7 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
 					temp_bottom_line = temp_bottom_line+ next_line+line;
 					temp_bottom_instance_count++;
 				}
+				
 			}
 		}
 		// cout<<"net_number:"<<net_number;
@@ -550,4 +556,19 @@ void OutputTopBottomFile(string topDieTech,string bottomDieTech,string topFileNa
     }
 	topFile.close();
 	bottomFile.close();
+	top_bottom_instance_number(PartitionResult);
+}
+void top_bottom_instance_number(vector <int> PartitionResult){
+	int count_top = 0;
+	int count_bottom = 0;
+	for(int i =0;i<PartitionResult.size();i++){
+		if(PartitionResult[i]){
+			count_top++;
+		}
+		else{
+			count_bottom++;
+		}
+	}
+	cout << count_top <<"\n";
+	cout << count_bottom <<"\n";
 }

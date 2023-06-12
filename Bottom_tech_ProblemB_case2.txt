@@ -2092,7 +2092,6 @@ Inst C2318 MC121
 Inst C2319 MC14 
 Inst C2320 MC45 
 Inst C2321 MC23 
-Inst C2324 MC193 
 Inst C2325 MC36 
 Inst C2326 MC10 
 Inst C2327 MC12 
@@ -4687,9 +4686,6 @@ Inst C7695 MC68
 Inst C7696 MC14 
 Inst C7697 MC14 
 Inst C7698 MC114 
-Inst C7706 MC14 
-Inst C7707 MC14 
-Inst C7708 MC14 
 Inst C7709 MC40 
 Inst C7710 MC14 
 Inst C7711 MC40 
@@ -7392,9 +7388,6 @@ Inst C13538 MC17
 Inst C13539 MC17 
 Inst C13540 MC204 
 Inst C13541 MC49 
-Inst C13549 MC57 
-Inst C13550 MC53 
-Inst C13551 MC17 
 Inst C13552 MC68 
 Inst C13553 MC57 
 Inst C13554 MC57 
@@ -7862,7 +7855,6 @@ Pin C13904/P1
 Net N58 14 
 Pin C2613/P3 
 Pin C7710/P1 
-Pin C7708/P1 
 Pin C7625/P1 
 Pin C7581/P1 
 Pin C6965/P1 
@@ -17943,24 +17935,14 @@ Pin C7628/P1
 Pin C4578/P1 
 Pin C4576/P1 
 Pin C4565/P1 
+//
+////There exists HybridTerminal in this net
+//Net N7089 4 
+//Pin C7633/P1 
 
-//There exists HybridTerminal in this net
-Net N7089 4 
-Pin C7633/P1 
-Pin C2324/P1 
-Net N7090 2 
-Pin C7706/P3 
-Pin C2324/P2 
-Net N7091 2 
-Pin C7707/P3 
-Pin C2324/P3 
-Net N7092 2 
-Pin C7708/P3 
-Pin C2324/P4 
 
 //There exists HybridTerminal in this net
 Net N7093 8 
-Pin C2324/P5 
 Pin C7601/P1 
 Pin C7503/P1 
 Pin C4536/P1 
@@ -20167,7 +20149,6 @@ Pin C2506/P4
 //There exists HybridTerminal in this net
 Net N7635 10 
 Pin C2506/P5 
-Pin C7707/P1 
 Pin C7656/P1 
 Pin C7544/P1 
 Pin C4703/P1 
@@ -21486,7 +21467,6 @@ Net N7950 10
 Pin C2611/P5 
 Pin C7758/P1 
 Pin C7743/P1 
-Pin C7706/P1 
 Pin C7605/P1 
 Pin C7554/P1 
 Pin C7482/P1 
@@ -30353,15 +30333,6 @@ Pin C13540/P2
 Net N13399 2 
 Pin C7698/P4 
 Pin C13541/P2 
-Net N13407 2 
-Pin C7706/P4 
-Pin C13549/P2 
-Net N13408 2 
-Pin C7707/P4 
-Pin C13550/P2 
-Net N13409 2 
-Pin C7708/P4 
-Pin C13551/P2 
 Net N13410 2 
 Pin C7709/P4 
 Pin C13553/P2 
@@ -38507,18 +38478,9 @@ Pin C13541/P1
 
 //
 ////There exists HybridTerminal in this net
-//Net N19249 2 
-//Pin C13549/P1 
+//Net N19252 2 
+//Pin C13552/P1 
 
-Net N19250 2 
-Pin C13549/P3 
-Pin C13550/P1 
-Net N19251 2 
-Pin C13550/P3 
-Pin C13551/P1 
-Net N19252 2 
-Pin C13551/P3 
-Pin C13552/P1 
 Net N19253 2 
 Pin C13552/P3 
 Pin C13553/P1 

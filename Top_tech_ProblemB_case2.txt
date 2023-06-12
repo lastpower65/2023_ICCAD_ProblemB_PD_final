@@ -2777,6 +2777,7 @@ Inst C1807 MC53
 Inst C2078 MC93 
 Inst C2322 MC98 
 Inst C2323 MC12 
+Inst C2324 MC193 
 Inst C2336 MC107 
 Inst C2337 MC36 
 Inst C2338 MC100 
@@ -5564,6 +5565,9 @@ Inst C7702 MC114
 Inst C7703 MC114 
 Inst C7704 MC114 
 Inst C7705 MC40 
+Inst C7706 MC14 
+Inst C7707 MC14 
+Inst C7708 MC14 
 Inst C7968 MC40 
 Inst C7969 MC14 
 Inst C7970 MC40 
@@ -8702,6 +8706,9 @@ Inst C13545 MC39
 Inst C13546 MC57 
 Inst C13547 MC53 
 Inst C13548 MC17 
+Inst C13549 MC57 
+Inst C13550 MC53 
+Inst C13551 MC17 
 Inst C13829 MC80 
 Inst C13830 MC43 
 Inst C13831 MC53 
@@ -8975,6 +8982,7 @@ Pin C7228/P1
 
 //There exists HybridTerminal in this net
 Net N58 14 
+Pin C7708/P1 
 Pin C7428/P1 
 Pin C7293/P1 
 Pin C7188/P1 
@@ -27139,9 +27147,20 @@ Pin C2323/P6
 Net N7089 4 
 Pin C2323/P7 
 Pin C7351/P1 
+Pin C2324/P1 
+Net N7090 2 
+Pin C7706/P3 
+Pin C2324/P2 
+Net N7091 2 
+Pin C7707/P3 
+Pin C2324/P3 
+Net N7092 2 
+Pin C7708/P3 
+Pin C2324/P4 
 
 //There exists HybridTerminal in this net
 Net N7093 8 
+Pin C2324/P5 
 Pin C6631/P1 
 Pin C2793/P11 
 
@@ -27777,6 +27796,7 @@ Pin C7053/P1
 
 //There exists HybridTerminal in this net
 Net N7635 10 
+Pin C7707/P1 
 Pin C7306/P1 
 Pin C7028/P1 
 
@@ -28127,6 +28147,7 @@ Pin C6712/P1
 
 //There exists HybridTerminal in this net
 Net N7950 10 
+Pin C7706/P1 
 Pin C7441/P1 
 Pin C7069/P1 
 //
@@ -37006,6 +37027,15 @@ Pin C13547/P2
 Net N13406 2 
 Pin C7705/P4 
 Pin C13548/P2 
+Net N13407 2 
+Pin C7706/P4 
+Pin C13549/P2 
+Net N13408 2 
+Pin C7707/P4 
+Pin C13550/P2 
+Net N13409 2 
+Pin C7708/P4 
+Pin C13551/P2 
 Net N13669 2 
 Pin C7968/P4 
 Pin C13829/P2 
@@ -46457,10 +46487,19 @@ Pin C13547/P1
 Net N19248 2 
 Pin C13547/P3 
 Pin C13548/P1 
+Net N19249 2 
+Pin C13548/P3 
+Pin C13549/P1 
+Net N19250 2 
+Pin C13549/P3 
+Pin C13550/P1 
+Net N19251 2 
+Pin C13550/P3 
+Pin C13551/P1 
 //
 ////There exists HybridTerminal in this net
-//Net N19249 2 
-//Pin C13548/P3 
+//Net N19252 2 
+//Pin C13551/P3 
 
 //
 ////There exists HybridTerminal in this net
